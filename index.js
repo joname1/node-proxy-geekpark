@@ -1,35 +1,37 @@
-var express = require('express');
-var request = require('superagent-charset');
+const express = require('express');
+const request = require('superagent');
 
-var app = express();
-var HOST = 'http://main_test.geekpark.net/api/v1';
+const app = express();
+const HostAPI = 'http://main_test.geekpark.net/api/v1';
 app.set('port', (process.env.PORT || 5000));
 
-app.all('*', function (req, res, next) {
+app.all('*', ((req, res, next) => {
   if (!req.get('Origin')) return next();
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET');
   res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
   if ('OPTIONS' == req.method) return res.send(200);
   next();
-});
+}));
 
-app.get('/', function (req, res) {
-  var sreq = request.get(HOST + req.originalUrl).charset('gbk')
+app.get('/', ((req, res) => {
+  let sreq = request.get(HostAPI + req.originalUrl)
   sreq.pipe(res);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   sreq.on('end', function (error, res) {
-    console.log('end');
+    console.log('home: ok');
   });
-})
+}));
 
-app.get('/posts/:id', function (req, res) {
-  var sreq = request.get(HOST + req.originalUrl).charset('gbk')
+app.get('/posts/:id', ((req, res) => {
+  let sreq = request.get(HostAPI + req.originalUrl)
   sreq.pipe(res);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
   sreq.on('end', function (error, res) {
-    console.log('end');
+    console.log('posts: ok');
   });
-})
+}));
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+app.listen(app.get('port'), (() => {
+  console.log('Node app is running on localhost:', app.get('port'));
+}));
