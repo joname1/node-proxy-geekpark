@@ -11,7 +11,7 @@ app.all('*', function (req, res, next) {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET');
   res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
-  res.set('Content-Type', 'text/html;charset=utf-8');
+  res.setHeader('Content-Type', 'text/html;charset=utf-8');
   if ('OPTIONS' == req.method) return res.send(200);
   next();
 });
