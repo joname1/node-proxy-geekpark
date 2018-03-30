@@ -1,6 +1,6 @@
 var express = require('express');
 var request = require('superagent');
-//var charset = require('superagent-charset');
+var charset = require('superagent-charset');
 
 var app = express();
 var HOST = 'http://main_test.geekpark.net/api/v1';
@@ -11,13 +11,12 @@ app.all('*', function (req, res, next) {
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET');
   res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
-  res.setHeader('Content-Type', 'text/html;charset=utf-8');
   if ('OPTIONS' == req.method) return res.send(200);
   next();
 });
 
 app.get('/', function (req, res) {
-  var sreq = request.get(HOST + req.originalUrl)
+  var sreq = request.get(HOST + req.originalUrl).charset('utf-8')
   sreq.pipe(res);
   sreq.on('end', function (error, res) {
     console.log('end');
@@ -25,7 +24,7 @@ app.get('/', function (req, res) {
 })
 
 app.get('/posts/:id', function (req, res) {
-  var sreq = request.get(HOST + req.originalUrl)
+  var sreq = request.get(HOST + req.originalUrl).charset('utf-8')
   sreq.pipe(res);
   sreq.on('end', function (error, res) {
     console.log('end');
