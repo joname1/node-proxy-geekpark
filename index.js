@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('superagent');
 
 const app = express();
-const HostAPI = 'http://main_test.geekpark.net/api';
+const HostAPI = 'http://main_test.geekpark.net';
 app.set('port', (process.env.PORT || 5000));
 
 app.all('*', ((req, res, next) => {
@@ -15,10 +15,10 @@ app.all('*', ((req, res, next) => {
 }));
 
 app.get('/', ((req, res) => {
-  res.end('<h1>Forbidden</h1>');
+  res.end('Forbidden');
 }));
 
-app.get('/v1', ((req, res) => {
+app.get('/api/v1', ((req, res) => {
   let sreq = request.get(HostAPI + req.originalUrl)
   sreq.pipe(res);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -27,7 +27,7 @@ app.get('/v1', ((req, res) => {
   }));
 }));
 
-app.get('/v2', ((req, res) => {
+app.get('/api/v2', ((req, res) => {
   let sreq = request.get(HostAPI + req.originalUrl)
   sreq.pipe(res);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -36,12 +36,39 @@ app.get('/v2', ((req, res) => {
   }));
 }));
 
-app.get('/posts/:id', ((req, res) => {
+app.get('/api/v1/posts/:id', ((req, res) => {
   let sreq = request.get(HostAPI + req.originalUrl)
   sreq.pipe(res);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   sreq.on('end', ((error, res) => {
-    console.log('posts: ok');
+    console.log('v1-posts: ok');
+  }));
+}));
+
+app.get('/api/v1/posts/:id/related', ((req, res) => {
+  let sreq = request.get(HostAPI + req.originalUrl)
+  sreq.pipe(res);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  sreq.on('end', ((error, res) => {
+    console.log('v1-posts: ok');
+  }));
+}));
+
+app.get('/api/v1/posts/hot_in_week', ((req, res) => {
+  let sreq = request.get(HostAPI + req.originalUrl)
+  sreq.pipe(res);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  sreq.on('end', ((error, res) => {
+    console.log('hot_in_week: ok');
+  }));
+}));
+
+app.get('/api/v1/columns/:id', ((req, res) => {
+  let sreq = request.get(HostAPI + req.originalUrl)
+  sreq.pipe(res);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  sreq.on('end', ((error, res) => {
+    console.log('columns: ok');
   }));
 }));
 

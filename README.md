@@ -15,56 +15,66 @@ npm i express superagent -S
 app.set('port', (process.env.PORT || 5000));
 ```
 如果不需要部署到 Heroku，端口可直接写死。
-**定义接口**
 
-根据前端所需，定义了如下两个接口：
-```javascript
-app.get('/', function (req, res) {
-  var sreq = request.get(HOST + req.originalUrl)
-  sreq.pipe(res);
-  sreq.on('end', function (error, res) {
-    console.log('end');
-  });
-})
+**接口文档**
 
-app.get('/posts/:id', function (req, res) {
-  var sreq = request.get(HOST + req.originalUrl)
-  sreq.pipe(res);
-  sreq.on('end', function (error, res) {
-    console.log('end');
-  });
-})
-```
+* 首页
+ - /api/v2
+
+
+* 内容详情页
+  - /api/v1/posts/:id
+
+
+* 相关文章
+ - /api/v1/posts/:id/related
+
+
+ * 分类栏目
+  - /api/v1/columns/:id
+
+
+* 一周热门
+ - /api/v1/posts/hot_in_week
+
+
+* 限制文章数量
+ - /api/v1/posts/?per=**
+
+
+* 下一页
+ - ?page=**
+
 
 **CORS设置**
 
 >跨源资源共享 ( [CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS) )机制让Web应用服务器能支持跨站访问控制，从而使得安全地进行跨站数据传输成为可能。
 主要是通过设置`Access-Control-Allow-Origin: *`
 ```javascript
-app.all('*', function (req, res, next) {
+app.all('*', ((req, res, next) => {
   if (!req.get('Origin')) return next();
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET');
   res.set('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type');
   if ('OPTIONS' == req.method) return res.send(200);
   next();
-});
+}));
 ```
 **端口监听**
 
 ```javascript
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), (() => {
   console.log('Node app is running on port', app.get('port'));
-});
+}));
 ```
 **启动**
 
 ```
-cd node-proxy
+cd node-proxy-geekpark
 node index.js
 ```
 
-具体见`node-proxy/index.js`
+具体见`index.js`
 
 # 部署到Heroku
 详情见： [官方 Getting Started](https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction)
