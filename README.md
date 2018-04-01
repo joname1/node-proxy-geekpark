@@ -19,7 +19,7 @@ app.set('port', (process.env.PORT || 5000));
 **接口文档**
 
 * 首页
- - /api/v2
+  - /api/v2
 
 
 * 内容详情页
@@ -27,23 +27,23 @@ app.set('port', (process.env.PORT || 5000));
 
 
 * 相关文章
- - /api/v1/posts/:id/related
+  - /api/v1/posts/:id/related
 
 
- * 分类栏目
+* 分类栏目
   - /api/v1/columns/:id
 
 
 * 一周热门
- - /api/v1/posts/hot_in_week
+  - /api/v1/posts/hot_in_week
 
 
 * 限制文章数量
- - /api/v1/posts/?per=**
+  - /api/v1/posts/?per=**
 
 
 * 下一页
- - ?page=**
+  - ?page=**
 
 
 **CORS设置**
