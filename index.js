@@ -36,7 +36,7 @@ app.get('/api/v2', ((req, res) => {
   }));
 }));
 
-app.get('/api/v1/posts/:id', ((req, res) => {
+app.get('/api/v1/posts', ((req, res) => {
   let sreq = request.get(HostAPI + req.originalUrl)
   sreq.pipe(res);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -45,12 +45,21 @@ app.get('/api/v1/posts/:id', ((req, res) => {
   }));
 }));
 
+app.get('/api/v1/posts/:id', ((req, res) => {
+  let sreq = request.get(HostAPI + req.originalUrl)
+  sreq.pipe(res);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  sreq.on('end', ((error, res) => {
+    console.log('v1-posts-id: ok');
+  }));
+}));
+
 app.get('/api/v1/posts/:id/related', ((req, res) => {
   let sreq = request.get(HostAPI + req.originalUrl)
   sreq.pipe(res);
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   sreq.on('end', ((error, res) => {
-    console.log('v1-posts: ok');
+    console.log('v1-posts-related: ok');
   }));
 }));
 
