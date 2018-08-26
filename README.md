@@ -70,8 +70,7 @@ app.listen(app.get('port'), (() => {
 **启动**
 
 ```
-cd node-proxy-geekpark
-node index.js
+npm run start
 ```
 
 具体见`index.js`
