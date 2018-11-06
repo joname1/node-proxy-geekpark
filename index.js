@@ -2,7 +2,7 @@ const express = require('express');
 const request = require('superagent');
 
 const app = express();
-const HostAPI = 'http://main_test.geekpark.net';
+const HostAPI = 'https://mainssl.geekpark.net';
 app.set('port', (process.env.PORT || 5000));
 
 app.all('*', ((req, res, next) => {
